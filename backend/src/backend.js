@@ -6,10 +6,10 @@ const db = new sqlite3.Database("./platform.db");
 
 const mainSchema = () => {
   db.prepare(
-    `CREATE TABLE IF NOT EXISTS mainTable (
+    `CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY,
-        product TEXT NOT NULL,
-        price INTEGER DEFAULT 0,
+        name TEXT NOT NULL,
+        price REAL DEFAULT 0,
         quantity INTEGER DEFAULT 0
     )`
   ).run();
