@@ -27,6 +27,20 @@ const mainSchema = () => {
         password TEXT DEFAULT 0
     )`
   ).run();
+  db.prepare(
+    `CREATE TABLE IF NOT EXISTS createProduct (
+        id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        price REAL DEFAULT 0,
+        quantity INTEGER DEFAULT 0,
+        brand TEXT,
+        color TEXT,
+        material TEXT,
+        weight REAL,
+        age_range TEXT,
+        dimensions REAL
+    )`
+  ).run();
 };
 
 mainSchema();
