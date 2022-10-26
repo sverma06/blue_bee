@@ -24,7 +24,7 @@ const mainSchema = () => {
   db.prepare(
     `CREATE TABLE IF NOT EXISTS userLoginInfo (
         user_id INTEGER PRIMARY KEY,
-        password TEXT DEFAULT 0,
+        password TEXT DEFAULT 0
     )`
   ).run();
 };
