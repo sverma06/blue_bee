@@ -14,7 +14,7 @@ const mainSchema = () => {
     )`
   ).run();
   db.prepare(
-    `CREATE TABLE IF NOT EXISTS userInfo (
+    `CREATE TABLE IF NOT EXISTS user (
         user_id INTEGER PRIMARY KEY,
         email TEXT NOT NULL,
         password TEXT DEFAULT 0,
@@ -22,13 +22,13 @@ const mainSchema = () => {
     )`
   ).run();
   db.prepare(
-    `CREATE TABLE IF NOT EXISTS userLoginInfo (
+    `CREATE TABLE IF NOT EXISTS users (
         user_id INTEGER PRIMARY KEY,
-        password TEXT DEFAULT 0
+        password TEXT NOT NULL
     )`
   ).run();
   db.prepare(
-    `CREATE TABLE IF NOT EXISTS createProduct (
+    `CREATE TABLE IF NOT EXISTS product (
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         price REAL DEFAULT 0,
