@@ -1,7 +1,7 @@
 import React from 'react';
-import './Logout.css';
+import './LogoutButton.css';
 
-const Logout = () => {
+const LogoutButton = () => {
     return (
         <div className='logoutContainer'>
             <button className='logoutButton'>Logout</button>
@@ -9,4 +9,4 @@ const Logout = () => {
     )
 }
 
-export default Logout;
+export default LogoutButton;

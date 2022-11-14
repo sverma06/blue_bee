@@ -1,4 +1,5 @@
 import React from "react";
+import LoginButton from "../Login/LoginButton";
 // import logo from "./assets/images/logo.png";
 
 const Signup = () => {
@@ -49,6 +50,7 @@ const Signup = () => {
         <div>
           <button className="button">Signup</button>
         </div>
+        <LoginButton />
       </form>
     </div>
   </div>

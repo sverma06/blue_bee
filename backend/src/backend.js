@@ -100,16 +100,17 @@ db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
 });
 
 // function isAuthenticated (req, res, next) {
+//   console.log(req.session.user)
 //   if (req.session.user) 
 //   return next();
-//   else next('/login')
+//   else res.status(401).send();
 // }
 
 // post for creating product
 app.post(
   "/addProducts",
-  express.json(),
   // isAuthenticated,
+  express.json(),
   async function (req, res) {
     console.log(req.body);
     try {
@@ -146,12 +147,12 @@ app.post(
 // logout
 app.get("/logout", (req,res) => {
   req.session.user = null;
-  res.status(200).send();
+  res.status(200).send("LOGGED OUT");
 })
 
 //Error handling
 app.use(function(err, req, res, next) {
-  console.log(err.stack);
+  console.log(err);
   res.status(500).send('Something is broken');
 });
 

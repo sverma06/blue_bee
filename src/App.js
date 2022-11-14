@@ -2,7 +2,7 @@ import "./App.css";
 import Signup from "./components/Signup/Signup";
 import Login from "./components/Login/Login";
 import AddProducts from "./components/Products/AddProducts";
-import Logout from "./components/Logout/Logout";
+import HomePage from "./components/HomePage/HomePage";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/logout",
-    element: <Logout />
+    element: <HomePage />
   }
 ]);
 
