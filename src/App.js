@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     element: <AddProducts />,
   },
   {
-    path: "/logout",
+    path: "/home",
     element: <HomePage />
   }
 ]);

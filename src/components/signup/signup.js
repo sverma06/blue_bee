@@ -1,17 +1,17 @@
 import React from "react";
-import LoginButton from "../Login/LoginButton";
-// import logo from "./assets/images/logo.png";
+import { useForm } from "react-hook-form";
 
 const Signup = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
 
   return (
     <div>
     <div className="heading">
-      {/* <img className="logo" src={logo} alt="logo" /> */}
       <h1>Blue bee</h1>
     </div>
     <div className="form">
-      <form method="POST" action="/signup">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <h2>Create account</h2>
         <div className="userid">
           <label className="label">Username </label>
@@ -19,7 +19,7 @@ const Signup = () => {
             className="input"
             type="text" 
             placeholder="Username" 
-            name="username"></input>
+            {...register("userame", { required: true})}></input>
         </div>
         <div className="email">
           <label className="label">Email </label>
@@ -27,7 +27,7 @@ const Signup = () => {
             className="input"
             type="email" 
             placeholder="youremail@gmail.com" 
-            name="email"></input>
+            {...register("email")}></input>
         </div>
         <div className="password">
           <label className="label">Password </label>
@@ -35,7 +35,7 @@ const Signup = () => {
             className="input"
             type="password"
             placeholder="************"
-            name="password"
+            {...register("password")}
           ></input>
         </div>
         <div className="password">
@@ -44,13 +44,12 @@ const Signup = () => {
             className="input"
             type="password"
             placeholder="************"
-            name="password"
+            {...register("password")}
           ></input>
         </div>
         <div>
-          <button className="button">Signup</button>
+          <button type="submit" className="button">Signup</button>
         </div>
-        <LoginButton />
       </form>
     </div>
   </div>
