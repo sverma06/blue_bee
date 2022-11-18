@@ -1,13 +1,17 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import Header from "../Header/Header";
 import './AddProducts.css';
 
 const AddProduct = () => {
+  const { register, handleSubmit } = useForm();
+  const onSubmit = data => console.log(data);
+
   return (
     <>
       <Header />
       <div className="productForm">
-        <form method="POST" action="/addProducts">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Create Product</h2>
           <div className="productFields">
             <label className="label">Name </label>
@@ -15,7 +19,7 @@ const AddProduct = () => {
               className="input"
               type="text"
               placeholder="name"
-              name="name"
+              {...register("name")}
             ></input>
           </div>
           <div className="productFields">
@@ -24,7 +28,7 @@ const AddProduct = () => {
               className="input"
               type="number"
               placeholder="price"
-              name="price"
+              {...register("price")}
             ></input>
           </div>
           <div className="productFields">
@@ -33,7 +37,7 @@ const AddProduct = () => {
               className="input"
               type="number"
               placeholder="Quantity"
-              name="quantity"
+              {...register("quantity")}
             ></input>
           </div>
           <div className="productFields">
@@ -42,7 +46,7 @@ const AddProduct = () => {
               className="input"
               type="text"
               placeholder="Brand"
-              name="brand"
+              {...register("brand")}
             ></input>
           </div>
           <div className="productFields">
@@ -51,7 +55,7 @@ const AddProduct = () => {
               className="input"
               type="text"
               placeholder="Color"
-              name="color"
+              {...register("color")}
             ></input>
           </div>
           <div className="productFields">
@@ -60,7 +64,7 @@ const AddProduct = () => {
               className="input"
               type="text"
               placeholder="Material"
-              name="material"
+              {...register("material")}
             ></input>
           </div>
           <div className="productFields">
@@ -69,7 +73,7 @@ const AddProduct = () => {
               className="input"
               type="number"
               placeholder="Weight"
-              name="weight"
+              {...register("weight")}
             ></input>
           </div>
           <div className="productFields">
@@ -78,7 +82,7 @@ const AddProduct = () => {
               className="input"
               type="number"
               placeholder="Age Range"
-              name="age_range"
+              {...register("age_range")}
             ></input>
           </div>
           <div className="productFields">
@@ -87,7 +91,7 @@ const AddProduct = () => {
               className="input"
               type="number"
               placeholder="Dimensions"
-              name="dimensions"
+              {...register("dimensions")}
             ></input>
           </div>
           <div>

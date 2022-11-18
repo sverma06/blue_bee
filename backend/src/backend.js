@@ -50,7 +50,9 @@ app.use(session({
 
 
 // post hashed password for signup
-app.post("/signup", express.urlencoded({ extended: false }),
+app.post(
+  "/signup", 
+  express.urlencoded({ extended: false }),
   async function (req, res) {
     console.log(req.body)
     const [password, confirmPassword] = req.body.password
@@ -65,7 +67,7 @@ app.post("/signup", express.urlencoded({ extended: false }),
           throw err;
         }
         req.session.user = { username: req.body.username };
-        res.redirect("/");
+        res.redirect("/home");
       });
     } catch (e) {
       console.log(e);
@@ -88,13 +90,14 @@ db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
         if (same) {
           res.send("welcome!");
           req.session.user = { username: row.username };
+          res.redirect("/home"); //added this to navigate to home page when successful
         } else {
           res.send("incorrect password/username");
         }
       });
     } catch (e) {
       console.log(e);
-      res.status(500).send();
+      res.status(500).send("Logged In");
     }
 });
 });
@@ -134,6 +137,7 @@ app.post(
           }
           req.session.products = { name: req.body.name };
           res.json({ message: "Success"});
+          
         }
       );
     } catch (e) {
@@ -143,6 +147,11 @@ app.post(
   }
 );
 
+//home
+app.get("/home", (req,res) => {
+  res.redirect("/home");
+}
+)
 
 // logout
 app.get("/logout", (req,res) => {
