@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 // import logo from "./assets/images/logo.png";
 
-const Signup = () => {
+const Sighnup = () => {
   let navigate = useNavigate();
 
   const navigateHome = () => {
@@ -61,4 +61,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Sighnup;
