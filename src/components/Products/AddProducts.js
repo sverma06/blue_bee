@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import Header from "../Header/Header";
+// import Header from "../Header/Header";
 import './AddProducts.css';
 
 const AddProducts = () => {
@@ -9,7 +9,7 @@ const AddProducts = () => {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="productForm">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Create Product</h2>

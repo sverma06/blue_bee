@@ -5,6 +5,7 @@ import AddProductButton from '../Products/AddProductButton';
 const HomePage = () => {
     return (
         <>
+        <h1>Home</h1>
             <Header />
             <AddProductButton />
         </>
