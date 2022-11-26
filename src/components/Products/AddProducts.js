@@ -2,10 +2,27 @@ import React from "react";
 import { useForm } from "react-hook-form";
 // import Header from "../Header/Header";
 import './AddProducts.css';
+import { useNavigate } from "react-router-dom";
 
 const AddProducts = () => {
+  let navigate = useNavigate(); 
+
   const { register, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    await fetch("/addProducts", {
+      method: 'POST',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(data),
+    });
+  };
+
+  
+
+  const productAdded = () => {
+    navigate("/products", { replace: true})
+  }
 
   return (
     <>
@@ -95,9 +112,22 @@ const AddProducts = () => {
             ></input>
           </div>
           <div>
-            <button className="button">Create product</button>
+            <button className="button" onClick={productAdded}>Create product</button>
           </div>
         </form>
+      </div>
+      <div>
+        <h2>Product Details</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Brand</th>
+            <th>Color</th>
+            <th>Material</th>
+          </tr>
+        </table>
       </div>
     </>
   );
