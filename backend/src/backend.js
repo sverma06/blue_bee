@@ -160,9 +160,18 @@ app.get("/currentUser", (req, res) => {
 })
 
 // logout
-app.get("/logout", (req,res) => {
-  req.session.user = null;
-  res.status(200).send("LOGGED OUT");
+app.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy(err => {
+      if (err) {
+        res.status(400).send('Unable to log out')
+      } else {
+        res.send('Logout successful')
+      }
+    });
+  } else {
+    res.end()
+  }
 })
 
 //Error handling
