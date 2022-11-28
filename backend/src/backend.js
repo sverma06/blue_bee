@@ -148,7 +148,7 @@ app.post(
 );
 
 // get product
-app.get("/addProducts", (req,res) => {
+app.get("/products", (req,res) => {
   db.get("SELECT * FROM product", (err, rows) => {
     if (err) throw err
   res.status(200).json( rows )
@@ -158,12 +158,6 @@ app.get("/addProducts", (req,res) => {
 app.get("/currentUser", (req, res) => {
   res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
 })
-
-//home
-app.get("/home", (req,res) => {
-  res.redirect("/home");
-}
-)
 
 // logout
 app.get("/logout", (req,res) => {
