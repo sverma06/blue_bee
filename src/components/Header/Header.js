@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import { AppBar, Box, Toolbar, IconButton, Typography, InputBase } from '@mui/material';
+import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutButton from '../Logout/LogoutButton';
 import AddProductButton from '../Products/AddProductButton';
+import avatar from './assets/avatar.png';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -84,6 +85,7 @@ export default function SearchAppBar() {
           </Typography>
           <AddProductButton />
           <LogoutButton />
+          <Avatar alt="Remy Sharp" src={avatar} />
         </Toolbar>
       </AppBar>
     </Box>
