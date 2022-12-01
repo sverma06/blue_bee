@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import Products from "./components/Products/Products";
 import 'bootstrap/dist/css/bootstrap.css';
+import Username from "./components/HomePage/Username";
 
 
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/products",
     element: <Products />
+  },
+  {
+    path: "/currentUser",
+    element: <Username />
   }
 ]);
 

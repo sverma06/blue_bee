@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const AddProductButton = () => {
@@ -9,9 +10,7 @@ const AddProductButton = () => {
   };
 
   return (
-    <button className="button" onClick={navigateAddProduct}>
-      Add Product
-    </button>
+    <Button variant="outlined" size="small" sx={{ m: 2, color: 'black', backgroundColor: 'sky blue', borderColor: 'black' }} onClick={navigateAddProduct}>Create Product</Button>
   );
 };
 
