@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-// import Header from "../Header/Header";
 import './AddProducts.css';
 import { useNavigate } from "react-router-dom";
 
@@ -18,15 +17,12 @@ const AddProducts = () => {
     });
   };
 
-  
-
   const productAdded = () => {
     navigate("/products", { replace: true})
   }
 
   return (
     <>
-      {/* <Header /> */}
       <div className="productForm">
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2>Create Product</h2>
@@ -117,17 +113,6 @@ const AddProducts = () => {
         </form>
       </div>
       <div>
-        <h2>Product Details</h2>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Brand</th>
-            <th>Color</th>
-            <th>Material</th>
-          </tr>
-        </table>
       </div>
     </>
   );
