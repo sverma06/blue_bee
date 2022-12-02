@@ -1,11 +1,16 @@
 import * as React from 'react';
+import "./Header.css";
 import { styled, alpha } from '@mui/material/styles';
 import { AppBar, Box, Toolbar, IconButton, Typography, InputBase, Avatar } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutButton from '../Logout/LogoutButton';
 import AddProductButton from '../Products/AddProductButton';
-import avatar from './assets/avatar.png';
+import logo from './assets/logo.png';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import avatar from "./assets/avatar.png";
+import { useNavigate } from 'react-router';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -50,9 +55,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar() {
+  let navigate = useNavigate();
+
+  const profileHandler = () => {
+    navigate("/home/profile", { replace: true})
+  }
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar className="appBar" position="static">
         <Toolbar>
           <IconButton
             size="large"
@@ -63,6 +75,7 @@ export default function SearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          <img className="logo" alt="logo" src={logo}/>
           <Typography
             variant="h6"
             noWrap
@@ -80,12 +93,14 @@ export default function SearchAppBar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <AddProductButton />
+          <LogoutButton />
+          <ShoppingCartIcon />
+          <NotificationsNoneIcon />
           <Typography sx={{ m: 2 }}>
             Hi! Swati
           </Typography>
-          <AddProductButton />
-          <LogoutButton />
-          <Avatar alt="Remy Sharp" src={avatar} />
+          <Avatar className="avatar" alt="Remy Sharp" src={avatar} onClick={profileHandler}/>;
         </Toolbar>
       </AppBar>
     </Box>

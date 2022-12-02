@@ -1,5 +1,7 @@
 import React from "react";
+import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const Login = () => {
   let navigate = useNavigate();
@@ -13,9 +15,10 @@ const Login = () => {
   }
 
   return (
-    <div className="form">
-      <form method="POST" action="/login">
-        <h2>Login</h2>
+    <div className="App">
+    <div className="auth-form-container">
+      <form className="login-form" method="POST" action="/login">
+        <Typography variant="h5" component="h5" align="center">Login</Typography>
         <div className="userid">
           <label className="label">Username </label>
           <input
@@ -38,7 +41,8 @@ const Login = () => {
           <button className="button" onClick={navigateHome}>Login</button>
         </div>
       </form>
-      <button className="button" onClick={signupPage}>Don't have an account? Signup here</button>
+      <button className="link-btn" onClick={signupPage}>Don't have an account? Signup here</button>
+    </div>
     </div>
   );
 };
