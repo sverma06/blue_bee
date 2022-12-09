@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../Header/Header';
-import Products from '../Products/Products';
+import ProductsList from '../Products/ProductsList';
 import HomePageTab from './HomePageTab';
 
 const HomePage = () => {
@@ -8,7 +8,7 @@ const HomePage = () => {
         <>
             <Header />
             <HomePageTab />
-            <Products />
+            <ProductsList />
         </>
     );
 }

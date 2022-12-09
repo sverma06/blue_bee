@@ -61,6 +61,10 @@ export default function SearchAppBar() {
     navigate("/home/profile", { replace: true})
   }
 
+  const homeHandler = () => {
+    navigate("/home", { replace: true})
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -75,12 +79,14 @@ export default function SearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
-          <img className="logo" alt="logo" src={logo}/>
+          <img className="logo" alt="logo" src={logo} onClick={homeHandler}/>
           <Typography
+            className='blueBee'
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            onClick={homeHandler}
           >
             Blue bee
           </Typography>
@@ -100,7 +106,7 @@ export default function SearchAppBar() {
           <Typography sx={{ m: 2 }}>
             Hi! Swati
           </Typography>
-          <Avatar className="avatar" alt="Remy Sharp" src={avatar} onClick={profileHandler}/>;
+          <Avatar className="avatar" alt="Remy Sharp" src={avatar} onClick={profileHandler}/>
         </Toolbar>
       </AppBar>
     </Box>

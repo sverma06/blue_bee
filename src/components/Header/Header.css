@@ -5,6 +5,11 @@
 .logo {
     height: 60px;
     width: 40px;
+    cursor: pointer;
+}
+
+.blueBee {
+    cursor: pointer;
 }
 
 .avatar {
