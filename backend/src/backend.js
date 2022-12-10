@@ -99,7 +99,7 @@ app.post(
             if (same) {
               req.session.user = { username: row.username };
               res.send("welcome!");
-              // res.redirect("/home");
+              res.redirect("/home");
             } else {
               res.send("incorrect password/username");
             }
@@ -166,12 +166,11 @@ app.get("/products", (req, res) => {
 
 // current user
 app.get("/currentUser", (req, res) => {
-  res
-    .status(200)
-    .json({
-      username: req.session.user.username,
-      createdDate: req.session.user.create_at,
-    });
+  console.log(req);
+  res.status(200).json({
+    username: req.session.user.username,
+    createdDate: req.session.user.create_at,
+  });
 });
 
 // // // gives you product id
@@ -199,7 +198,7 @@ app.get("/products/:id", (req, res) => {
       res.status(200).json(rows);
     }
   });
-  console.log("Product id",fetchId );
+  console.log("Product id", fetchId);
 });
 
 // logged in user profile
