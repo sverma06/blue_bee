@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import { Container, Row, Button } from "react-bootstrap";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Typography,
+  Grid,
+} from "@mui/material";
 import blazer from "./assets/blazer.jpeg";
 
 const Products = () => {
@@ -25,26 +31,42 @@ const Products = () => {
   }, []);
 
   return (
-    <Container className="p-4">
-      <Row>
-        {list?.map((item) => {
+    <>
+      <Grid
+        container
+        spacing={2}
+        direction="row"
+        justify="flex-center"
+        alignItems="flex-center"
+      >
+        {list.map((item) => {
           return (
-            <Card style={{ width: "20%" }} className="m-2">
-              <Card.Img variant="top" src={blazer} />
-              <Card.Body key={item.id}>
-                <Card.Title>{item.name}</Card.Title>
-              </Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroup.Item>{item.price}</ListGroup.Item>
-                <ListGroup.Item>{item.brand}</ListGroup.Item>
-                <ListGroup.Item>{item.color}</ListGroup.Item>
-              </ListGroup>
-              <Button variant="primary">More</Button>
-            </Card>
+              <Grid item xs={12} sm={6} md={3}>
+                <Card sx={{ maxWidth: 250 }}>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    image={blazer}
+                    alt="product"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h6" component="div">
+                      {item.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {`$` + item.price}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    <Button size="small">Share</Button>
+                    <Button size="small">Learn More</Button>
+                  </CardActions>
+                </Card>
+              </Grid>
           );
         })}
-      </Row>
-    </Container>
+      </Grid>
+    </>
   );
 };
 
