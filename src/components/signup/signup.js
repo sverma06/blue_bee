@@ -1,17 +1,22 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+// import logo from "./assets/images/logo.png";
 
 const Signup = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = data => console.log(data);
+  let navigate = useNavigate();
+
+  const navigateHome = () => {
+    navigate("/home", { replace: true})
+  }
 
   return (
     <div>
     <div className="heading">
+      {/* <img className="logo" src={logo} alt="logo" /> */}
       <h1>Blue bee</h1>
     </div>
     <div className="form">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form method="POST" action="/signup">
         <h2>Create account</h2>
         <div className="userid">
           <label className="label">Username </label>
@@ -19,7 +24,7 @@ const Signup = () => {
             className="input"
             type="text" 
             placeholder="Username" 
-            {...register("userame", { required: true})}></input>
+            name="username"></input>
         </div>
         <div className="email">
           <label className="label">Email </label>
@@ -27,7 +32,7 @@ const Signup = () => {
             className="input"
             type="email" 
             placeholder="youremail@gmail.com" 
-            {...register("email")}></input>
+            name="email"></input>
         </div>
         <div className="password">
           <label className="label">Password </label>
@@ -35,7 +40,7 @@ const Signup = () => {
             className="input"
             type="password"
             placeholder="************"
-            {...register("password")}
+            name="password"
           ></input>
         </div>
         <div className="password">
@@ -44,11 +49,11 @@ const Signup = () => {
             className="input"
             type="password"
             placeholder="************"
-            {...register("password")}
+            name="password"
           ></input>
         </div>
         <div>
-          <button type="submit" className="button">Signup</button>
+          <button className="button" onClick={navigateHome}>Signup</button>
         </div>
       </form>
     </div>

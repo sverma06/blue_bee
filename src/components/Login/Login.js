@@ -2,7 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+
+  const navigateHome = () => {
+    navigate("/home", { replace: true})
+  }
 
   const signupPage = () => {
     navigate("/signup", { replace: true});
@@ -31,7 +35,7 @@ const Login = () => {
           ></input>
         </div>
         <div>
-          <button className="button">Login</button>
+          <button className="button" onClick={navigateHome}>Login</button>
         </div>
       </form>
       <button className="button" onClick={signupPage}>Don't have an account? Signup here</button>
