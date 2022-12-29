@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Header from "../Header/Header";
 import './AddProducts.css';
 
-const AddProduct = () => {
+const AddProducts = () => {
   const { register, handleSubmit } = useForm();
   const onSubmit = data => console.log(data);
 
@@ -103,4 +103,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default AddProducts;

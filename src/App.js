@@ -1,5 +1,5 @@
 import "./App.css";
-import Signup from "./components/Signup/Signup";
+import Sighnup from "./components/Sighnup/Sighnup";
 import Login from "./components/Login/Login";
 import AddProducts from "./components/Products/AddProducts";
 import HomePage from "./components/HomePage/HomePage";
@@ -14,7 +14,7 @@ import {
 const router = createBrowserRouter([
   {
     path: "/signup",
-    element: <Signup />,
+    element: <Sighnup />,
   },
   {
     path: "/login",
