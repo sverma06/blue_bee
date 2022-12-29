@@ -65,6 +65,10 @@ export default function SearchAppBar() {
     navigate("/home", { replace: true})
   }
 
+  const cartHandler = () => {
+    navigate("/cart", { replace: true})
+  }
+
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -101,7 +105,7 @@ export default function SearchAppBar() {
           </Search>
           <AddProductButton />
           <LogoutButton />
-          <ShoppingCartIcon />
+          <ShoppingCartIcon onClick={cartHandler}/>
           <NotificationsNoneIcon />
           <Typography sx={{ m: 2 }}>
             Hi! Swati

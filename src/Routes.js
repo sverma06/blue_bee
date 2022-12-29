@@ -6,6 +6,7 @@ import ProductsList from "./components/Products/ProductsList";
 import Username from "./components/HomePage/Username";
 import ProductPage from "./components/Products/ProductPage";
 import {createBrowserRouter} from "react-router-dom";
+import Cart from "./components/Header/Cart/Cart";
 
 export const router = createBrowserRouter([
     {
@@ -36,4 +37,8 @@ export const router = createBrowserRouter([
       path: "/products/:id",
       element: <ProductPage />
     },
+    {
+      path: "/cart",
+      element: <Cart />
+    }
   ]);

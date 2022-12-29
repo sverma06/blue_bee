@@ -34,6 +34,15 @@ const mainSchema = () => {
         FOREIGN KEY(owner_id) REFERENCES user(id)
     )`
   ).run();
+  db.prepare(
+    `CREATE TABLE IF NOT EXISTS users_cart (
+      id INTEGER PRIMARY KEY,
+      user_id INTEGER NOT NULL,
+      product_id INTGER NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES user(id),
+      FOREIGN KEY (product_id) REFERENCES product(id)
+    )`
+  ).run();
 };
 
 mainSchema();
@@ -72,7 +81,7 @@ app.post(
           if (err) {
             throw err;
           }
-          req.session.user = { username: req.body.username };
+          req.session.user = { username: row.username, email: row.email };
           res.redirect("/home");
         }
       );
@@ -99,8 +108,8 @@ app.post(
             if (err) throw err;
             console.log(req.body.password, row.password);
             if (same) {
-              req.session.user = { username: row.username };
-              res.send("welcome!");
+              req.session.user = { id: row.id, username: row.username, email: row.email};
+              res.redirect("/home");
             } else {
               res.send("incorrect password/username");
             }
@@ -129,12 +138,13 @@ app.post(
   async function (req, res) {
     console.log(req.body);
     try {
-      let newProduct = `INSERT INTO product(name, price, quantity, brand, color, material, weight, age_range, dimensions) VALUES (?,?,?,?,?,?,?,?,?)`;
+      let newProduct = `INSERT INTO product(name, price, owner_id, quantity, brand, color, material, weight, age_range, dimensions) VALUES (?,?,?,?,?,?,?,?,?,?)`;
       db.run(
         newProduct,
         [
           req.body.name,
           req.body.price,
+          req.session.user.id,
           req.body.quantity,
           req.body.brand,
           req.body.color,
@@ -171,6 +181,7 @@ app.get("/currentUser", (req, res) => {
     .status(200)
     .json({
       username: req.session.user.username,
+      email: req.session.user.email,
       createdDate: req.session.user.create_at,
     });
 });
@@ -187,6 +198,30 @@ app.get("/products/:id", (req, res) => {
   });
   console.log("Product id",fetchId );
 });
+
+//get cart
+app.get("/cart", (req, res) => {
+  db.all("SELECT product.* FROM product JOIN users_cart ON users_cart.product_id = product.id WHERE users_cart.user_id= ?",[req.session.user.id], (err, rows) => {
+    if  (err) {
+      console.log(err);
+    } else {
+      res.status(200).json(rows);
+    }
+  });
+});
+
+//add into cart
+app.post("/cart",express.json(), async (req,res) => {
+  let newCart = `INSERT INTO users_cart (user_id, product_id) VALUES (?,?)`
+  db.run(newCart,[req.session.user.id, req.body.product_id],
+    (err) => {
+      if (err) {
+        throw err;
+      }
+      res.json({ message: "Success" });
+    })
+  
+})
 
 // logout
 app.get("/logout", (req, res) => {
