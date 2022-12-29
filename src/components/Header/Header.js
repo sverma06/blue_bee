@@ -1,5 +1,5 @@
 import React from "react";
-import Logout from "../Logout/Logout";
+import LogoutButton from "../Logout/LogoutButton";
 import ProfileButton from "../Profile/ProfileButton";
 import Search from "../Search/Search";
 
@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <>
       <Search />
-      <Logout />
+      <LogoutButton />
       <ProfileButton />
     </>
   );

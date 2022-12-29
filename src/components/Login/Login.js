@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const signupPage = () => {
+    navigate("/signup", { replace: true});
+  }
 
   return (
     <div className="form">
@@ -28,7 +34,7 @@ const Login = () => {
           <button className="button">Login</button>
         </div>
       </form>
-      <button className="button">Don't have an account? Signup here</button>
+      <button className="button" onClick={signupPage}>Don't have an account? Signup here</button>
     </div>
   );
 };
