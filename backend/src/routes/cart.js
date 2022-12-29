@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { db } = require("../../src/database");
+const authorization = require("../authenticated/authenticated");
+const authenticate = authorization.isAuthenticated;
 
-router.get("/", (req, res) => {
+router.get("/", authenticate, (req, res) => {
   db.all(
     "SELECT product.* FROM product JOIN users_cart ON users_cart.product_id = product.id WHERE users_cart.user_id= ?",
     [req.session.user.id],
@@ -16,7 +18,7 @@ router.get("/", (req, res) => {
   );
 });
 
-router.post("/", express.json(), async (req, res) => {
+router.post("/", authenticate, express.json(), async (req, res) => {
   let newCart = `INSERT INTO users_cart (user_id, product_id) VALUES (?,?)`;
   db.run(newCart, [req.session.user.id, req.body.product_id], (err) => {
     if (err) {

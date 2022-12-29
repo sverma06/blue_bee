@@ -1,16 +1,9 @@
 const express = require("express");
 const router = express.Router();
-// var session = require("express-session");
+const authorization = require("../authenticated/authenticated");
+const authenticate = authorization.isAuthenticated;
 
-// app.use(
-//   session({
-//     secret: "keyboard cat",
-//     resave: false,
-//     saveUninitialized: true,
-//   })
-// );
-
-router.get("/", (req, res) => {
+router.get("/", authenticate, (req, res) => {
   res.status(200).json({
     username: req.session.user.username,
     email: req.session.user.email,

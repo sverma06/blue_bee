@@ -1,13 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const { db } = require("../database");
-
-function isAuthenticated (req, res, next) {
-  console.log(req.session.user)
-  if (req.session.user)
-  return next();
-  else res.status(401).send();
-}
+const authorization = require("../authenticated/authenticated");
+const authenticate = authorization.isAuthenticated;
 
 // list of products
 router.get("/", (req, res) => {
@@ -20,7 +15,7 @@ router.get("/", (req, res) => {
 // add products
 router.post(
   "/",
-  isAuthenticated,
+  authenticate,
   express.json(),
   async function (req, res) {
     console.log(req.body);
