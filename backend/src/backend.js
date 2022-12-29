@@ -1,6 +1,6 @@
 const sqlite3 = require("sqlite3").verbose();
 const express = require("express");
-var session = require('express-session')
+var session = require("express-session");
 const bcrypt = require("bcrypt");
 
 const app = express();
@@ -42,33 +42,38 @@ app.use(express.static("public"));
 
 app.use("/users", userRouter);
 
-app.use(session({
-    secret: 'keyboard cat',
+app.use(
+  session({
+    secret: "keyboard cat",
     resave: false,
-    saveUninitialized: true
-  }))
-
+    saveUninitialized: true,
+  })
+);
 
 // post hashed password for signup
 app.post(
-  "/signup", 
+  "/signup",
   express.urlencoded({ extended: false }),
   async function (req, res) {
-    console.log(req.body)
-    const [password, confirmPassword] = req.body.password
-    if(password != confirmPassword) {
-      res.status(400).send()
+    console.log(req.body);
+    const [password, confirmPassword] = req.body.password;
+    if (password != confirmPassword) {
+      res.status(400).send();
     }
     try {
       const hashedPassword = await bcrypt.hash(password, 10);
       let newUser = `INSERT INTO user(username, email, password) VALUES (?,?,?)`;
-      db.run(newUser, [req.body.username, req.body.email, hashedPassword], (err) => {
-        if(err) {
-          throw err;
+      db.run(
+        newUser,
+        [req.body.username, req.body.email, hashedPassword],
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          req.session.user = { username: req.body.username };
+          res.redirect("/home");
         }
-        req.session.user = { username: req.body.username };
-        res.redirect("/home");
-      });
+      );
     } catch (e) {
       console.log(e);
       res.redirect("/signup");
@@ -77,34 +82,40 @@ app.post(
 );
 
 // post for login
-app.post("/login", express.urlencoded({ extended: false }),
+app.post(
+  "/login",
+  express.urlencoded({ extended: false }),
   async function (req, res) {
     console.log(req.body);
-db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
-  (err, row) => {
-    if (err) throw err;
-    try {
-      bcrypt.compare(req.body.password, row.password, (err, same) => {
+    db.get(
+      "SELECT * FROM user WHERE username = ?",
+      req.body.username,
+      (err, row) => {
         if (err) throw err;
-        console.log(req.body.password, row.password);
-        if (same) {
-          req.session.user = { username: row.username };
-          res.send("welcome!");
-          // res.redirect("/home");
-        } else {
-          res.send("incorrect password/username");
+        try {
+          bcrypt.compare(req.body.password, row.password, (err, same) => {
+            if (err) throw err;
+            console.log(req.body.password, row.password);
+            if (same) {
+              req.session.user = { username: row.username };
+              res.send("welcome!");
+              // res.redirect("/home");
+            } else {
+              res.send("incorrect password/username");
+            }
+          });
+        } catch (e) {
+          console.log(e);
+          res.status(500).send("Logged In");
         }
-      });
-    } catch (e) {
-      console.log(e);
-      res.status(500).send("Logged In");
-    }
-});
-});
+      }
+    );
+  }
+);
 
 // function isAuthenticated (req, res, next) {
 //   console.log(req.session.user)
-//   if (req.session.user) 
+//   if (req.session.user)
 //   return next();
 //   else res.status(401).send();
 // }
@@ -135,77 +146,89 @@ app.post(
           if (err) {
             throw err;
           }
-          req.session.products = { name: req.body.name };
-          res.json({ message: "Success"});
-          
+          res.json({ message: "Success" });
         }
       );
     } catch (e) {
       console.log(e);
-      res.json({ message: "Error"});
+      res.json({ message: "Error" });
     }
   }
 );
 
-// get product
-app.get("/products", (req,res) => {
+// get list of products
+app.get("/products", (req, res) => {
   db.all("SELECT * FROM product", (err, rows) => {
-    if (err) throw err
-  res.status(200).json( rows )
-})
+    if (err) throw err;
+    res.status(200).json(rows);
+  });
 });
 
 // current user
 app.get("/currentUser", (req, res) => {
-    res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
-})
+  res
+    .status(200)
+    .json({
+      username: req.session.user.username,
+      createdDate: req.session.user.create_at,
+    });
+});
 
-// product id as param
-app.get('/products/product', function(req, res) {
-  const product_id = req.query.id;
-  const product_name = req.query.name;
+// // // gives you product id
+// app.post("/products") , (req,res) => {
+//   express.urlencoded({ extended: false }),
+//   async function (req, res) {
+//     console.log(req.body);
+//   db.get("SELECT * FROM product WHERE id = ?", (err, rows) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       res.status(200).json(rows);
+//     }
+//   });
+// }
+// }
 
-  res.status(200).send({
-    'p_id': product_id,
-    'p_name': product_name,
+// single product
+app.get("/products/:id", (req, res) => {
+  const fetchId = req.params.id;
+  db.get("SELECT * FROM product WHERE id = ?", fetchId, (err, rows) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.status(200).json(rows);
+    }
+  });
+  console.log("Product id",fetchId );
+});
+
+// logged in user profile
+app.get("/home/profile", (req, res) => {
+  db.get("SELECT username, email FROM user WHERE username = ?", (err, rows) => {
+    if (err) throw err;
+    res.status(200).json(rows);
   });
 });
-
-// user info
-app.param('name', function(req, res, next, name) {
-  const modified = name.toUpperCase();
-
-  req.name = modified;
-  next();
-});
-
-app.get('/home/profile', (req, res) => {
-  db.get("SELECT * FROM user", (err, rows) => {
-    if (err) throw err
-    res.status(200).json(rows)
-  });
-});
-
 
 // logout
-app.get('/logout', (req, res) => {
+app.get("/logout", (req, res) => {
   if (req.session) {
-    req.session.destroy(err => {
+    req.session.destroy((err) => {
       if (err) {
-        res.status(400).send('Unable to log out')
+        res.status(400).send("Unable to log out");
       } else {
-        res.send('Logout successful')
+        res.send("Logout successful");
       }
     });
   } else {
-    res.end()
+    res.end();
   }
-})
-
-//Error handling
-app.use(function(err, req, res, next) {
-  console.log(err);
-  res.status(500).send('Something is broken');
 });
 
-app.listen(3001, () => console.log('Running on 3001'));
+//Error handling
+app.use(function (err, req, res, next) {
+  console.log(err);
+  res.status(500).send("Something is broken");
+});
+
+app.listen(3001, () => console.log("Running on 3001"));

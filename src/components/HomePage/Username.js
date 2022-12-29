@@ -5,11 +5,14 @@ const Username = () => {
   const [name, setName] = useState([]);
 
   useEffect(() => {
-    const url = "http://localhost:3000/currentUser";
+    const url = "/currentUser";
 
     const fetchName = async () => {
       try {
-        const response = await fetch(url).then((response) => response.json());
+        const response = await fetch(url, {
+          headers: { "Content-Type": "application/json" },
+        }).then((response) => response.json());
+
         console.log(response);
         setName(response);
       } catch (error) {

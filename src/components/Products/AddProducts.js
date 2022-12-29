@@ -16,9 +16,6 @@ const AddProducts = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
-  };
-
-  const productAdded = () => {
     navigate("/products", { replace: true });
   };
 
@@ -116,7 +113,6 @@ const AddProducts = () => {
           <button
             className="button"
             align="center"
-            onClick={productAdded}
           >
             ADD
           </button>
