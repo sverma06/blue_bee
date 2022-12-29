@@ -48,27 +48,6 @@ app.use(session({
     saveUninitialized: true
   }))
 
-// // get form for login
-// app.get("/login", function (req, res) {
-//   res.send(
-//     '<form action="/login" method="post">' +
-//       'Username: <input name="username"><br>' +
-//       'Password: <input name="password" type="password"><br>' +
-//       '<input type="submit" text="Login"></form>'
-//   );
-// });
-
-// // get form for signup
-// app.get("/signup", function (req, res) {
-//   res.send(
-//     '<form action="/signup" method="post">' +
-//       'Username: <input name="username"><br>' +
-//       'Email: <input name="email" type="email"><br>' +
-//       'Password: <input name="password" type="password"><br>' +
-//       'Password again: <input name="password" type="password"><br>' +
-//       '<input type="submit" text="Signup"></form>'
-//   );
-// });
 
 // post hashed password for signup
 app.post("/signup", express.urlencoded({ extended: false }),
@@ -98,6 +77,7 @@ app.post("/signup", express.urlencoded({ extended: false }),
 // post for login
 app.post("/login", express.urlencoded({ extended: false }),
   async function (req, res) {
+    console.log(req.body);
 db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
   (err, row) => {
     if (err) throw err;
@@ -118,6 +98,50 @@ db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
     }
 });
 });
+
+// function isAuthenticated (req, res, next) {
+//   if (req.session.user) 
+//   return next();
+//   else next('/login')
+// }
+
+// post for creating product
+app.post(
+  "/addProducts",
+  express.json(),
+  // isAuthenticated,
+  async function (req, res) {
+    console.log(req.body);
+    try {
+      let newProduct = `INSERT INTO product(name, price, quantity, brand, color, material, weight, age_range, dimensions) VALUES (?,?,?,?,?,?,?,?,?)`;
+      db.run(
+        newProduct,
+        [
+          req.body.name,
+          req.body.price,
+          req.body.quantity,
+          req.body.brand,
+          req.body.color,
+          req.body.material,
+          req.body.weight,
+          req.body.dimensions,
+          req.body.age_range,
+        ],
+        (err) => {
+          if (err) {
+            throw err;
+          }
+          req.session.products = { name: req.body.name };
+          res.json({ message: "Success"});
+        }
+      );
+    } catch (e) {
+      console.log(e);
+      res.json({ message: "Error"});
+    }
+  }
+);
+
 
 // logout
 app.get("/logout", (req,res) => {
