@@ -199,17 +199,6 @@ app.get("/products/:id", (req, res) => {
   console.log("Product id",fetchId );
 });
 
-//get cart
-app.get("/cart", (req, res) => {
-  db.all("SELECT product.* FROM product JOIN users_cart ON users_cart.product_id = product.id WHERE users_cart.user_id= ?",[req.session.user.id], (err, rows) => {
-    if  (err) {
-      console.log(err);
-    } else {
-      res.status(200).json(rows);
-    }
-  });
-});
-
 //add into cart
 app.post("/cart",express.json(), async (req,res) => {
   let newCart = `INSERT INTO users_cart (user_id, product_id) VALUES (?,?)`
@@ -222,6 +211,28 @@ app.post("/cart",express.json(), async (req,res) => {
     })
   
 })
+
+//get cart
+app.get("/cart", (req, res) => {
+  db.all("SELECT product.* FROM product JOIN users_cart ON users_cart.product_id = product.id WHERE users_cart.user_id= ?",[req.session.user.id], (err, rows) => {
+    if  (err) {
+      console.log(err);
+    } else {
+      res.status(200).json(rows);
+    }
+  });
+});
+
+// delete item from cart
+app.delete("/cart/:product_id", (req,res) => {
+  db.run(`DELETE FROM users_cart WHERE product_id= ?`, req.params.product_id, function (err, result){
+    if (err) {
+      res.status(400).json({ "error": res.message })
+      return;
+  }
+  res.status(200).json({ deletedID: this.changes })
+});
+});
 
 // logout
 app.get("/logout", (req, res) => {

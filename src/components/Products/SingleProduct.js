@@ -34,6 +34,14 @@ const SingleProduct = () => {
     }
   };
 
+  const cartHandler = async () => {
+    const response = await fetch("/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({product_id: id}),
+    }).then(res => res);
+  };
+
   useEffect(() => {
     fetchProduct();
   }, []);
@@ -103,7 +111,7 @@ const SingleProduct = () => {
           <IconButton aria-label="share">
             <ShareIcon />
           </IconButton>
-          <Button variant="outlined">Add to Cart</Button>
+          <Button variant="outlined" onClick={cartHandler}>Add to Cart</Button>
         </CardContent>
       </Grid>
     </Grid>
