@@ -23,13 +23,15 @@ const mainSchema = () => {
         id INTEGER PRIMARY KEY,
         name TEXT NOT NULL,
         price REAL DEFAULT 0,
+        owner_id INTEGER NOT NULL,
         quantity INTEGER DEFAULT 0,
         brand TEXT,
         color TEXT,
         material TEXT,
         weight REAL,
         age_range TEXT,
-        dimensions REAL
+        dimensions REAL,
+        FOREIGN KEY(owner_id) REFERENCES user(id)
     )`
   ).run();
 };
