@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import "./AddProducts.css";
 import { useNavigate } from "react-router-dom";
-import { Typography, Grid, Container, Button, Box } from "@mui/material";
+import { Typography, Grid, Container, Box } from "@mui/material";
 
 const AddProducts = () => {
   let navigate = useNavigate();
@@ -23,8 +23,9 @@ const AddProducts = () => {
   };
 
   return (
+    <div className="App">
     <Container maxWidth="lg">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form className="auth-form-container" onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h5" component="h5" align="center">
           Create Product
         </Typography>
@@ -112,23 +113,17 @@ const AddProducts = () => {
           </Grid>
         </Grid>
         <Box textAlign="center">
-          <Button
+          <button
+            className="button"
             align="center"
-            variant="contained"
-            size="large"
-            sx={{
-              m: 2,
-              color: "primary",
-              backgroundColor: "light blue",
-              borderColor: "black",
-            }}
             onClick={productAdded}
           >
             ADD
-          </Button>
+          </button>
         </Box>
       </form>
     </Container>
+    </div>
   );
 };
 

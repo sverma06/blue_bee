@@ -160,6 +160,33 @@ app.get("/currentUser", (req, res) => {
     res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
 })
 
+// product id as param
+app.get('/products/product', function(req, res) {
+  const product_id = req.query.id;
+  const product_name = req.query.name;
+
+  res.status(200).send({
+    'p_id': product_id,
+    'p_name': product_name,
+  });
+});
+
+// user info
+app.param('name', function(req, res, next, name) {
+  const modified = name.toUpperCase();
+
+  req.name = modified;
+  next();
+});
+
+app.get('/home/profile', (req, res) => {
+  db.get("SELECT * FROM user", (err, rows) => {
+    if (err) throw err
+    res.status(200).json(rows)
+  });
+});
+
+
 // logout
 app.get('/logout', (req, res) => {
   if (req.session) {
