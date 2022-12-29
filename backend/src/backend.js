@@ -13,6 +13,14 @@ const mainSchema = () => {
         quantity INTEGER DEFAULT 0
     )`
   ).run();
+  db.prepare(
+    `CREATE TABLE IF NOT EXISTS userInfo (
+        user_id INTEGER PRIMARY KEY,
+        email TEXT NOT NULL,
+        password TEXT DEFAULT 0,
+        create_at INTEGER DEFAULT 0
+    )`
+  ).run();
 };
 
 mainSchema();
