@@ -155,8 +155,9 @@ app.get("/products", (req,res) => {
 })
 });
 
+// current user
 app.get("/currentUser", (req, res) => {
-  res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
+    res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
 })
 
 // logout

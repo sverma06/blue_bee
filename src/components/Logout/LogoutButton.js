@@ -1,5 +1,5 @@
 import React from 'react';
-import './LogoutButton.css';
+import { Button } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 
 const LogoutButton = () => {
@@ -8,9 +8,7 @@ const LogoutButton = () => {
     const onLogout = () => { navigate("/login", { replace: true })}
 
     return (
-        <div className='logoutContainer'>
-            <button className='logoutButton' onClick={onLogout}>Logout</button>
-        </div>
+            <Button variant="outlined" size="small" sx={{ m: 2, color: 'black', backgroundColor: 'sky blue', borderColor: 'black' }} onClick={onLogout}>LOGOUT</Button>
     )
 }
 
