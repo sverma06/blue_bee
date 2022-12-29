@@ -21,6 +21,12 @@ const mainSchema = () => {
         create_at INTEGER DEFAULT 0
     )`
   ).run();
+  db.prepare(
+    `CREATE TABLE IF NOT EXISTS userLoginInfo (
+        user_id INTEGER PRIMARY KEY,
+        password TEXT DEFAULT 0,
+    )`
+  ).run();
 };
 
 mainSchema();
