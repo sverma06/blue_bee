@@ -8,6 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Products from "./components/Products/Products";
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 

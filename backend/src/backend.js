@@ -149,7 +149,7 @@ app.post(
 
 // get product
 app.get("/products", (req,res) => {
-  db.get("SELECT * FROM product", (err, rows) => {
+  db.all("SELECT * FROM product", (err, rows) => {
     if (err) throw err
   res.status(200).json( rows )
 })
