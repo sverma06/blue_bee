@@ -62,4 +62,17 @@ router.get("/:id", (req, res) => {
   console.log("Product id", fetchId);
 });
 
+// delete product
+router.delete("/:id", (req,res) => {
+  db.run(`DELETE FROM product WHERE id= ?`,
+  req.params.id,
+  function (err, result) {
+    if (err) {
+      res.status(400).json({ error: res.message });
+      return;
+    }
+    res.status(200).json({ deletedID: this.changes });
+  });
+});
+
 module.exports = router;
