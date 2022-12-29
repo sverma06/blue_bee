@@ -1,7 +1,8 @@
 import React from "react";
 // import logo from "./assets/images/logo.png";
 
-const signup = () => {
+const Signup = () => {
+
   return (
     <div>
     <div className="heading">
@@ -9,22 +10,31 @@ const signup = () => {
       <h1>Blue bee</h1>
     </div>
     <div className="form">
-      <form>
+      <form method="POST" action="/signup">
         <h2>Create account</h2>
         <div className="userid">
-          <label className="label">User ID </label>
-          <input className="input" type="text" placeholder="User ID"></input>
+          <label className="label">Username </label>
+          <input 
+            className="input"
+            type="text" 
+            placeholder="Username" 
+            name="username"></input>
         </div>
         <div className="email">
           <label className="label">Email </label>
-          <input className="input" type="text" placeholder="Email"></input>
+          <input 
+            className="input"
+            type="email" 
+            placeholder="youremail@gmail.com" 
+            name="email"></input>
         </div>
         <div className="password">
           <label className="label">Password </label>
           <input
             className="input"
             type="password"
-            placeholder="Password"
+            placeholder="************"
+            name="password"
           ></input>
         </div>
         <div className="password">
@@ -32,7 +42,8 @@ const signup = () => {
           <input
             className="input"
             type="password"
-            placeholder="Password"
+            placeholder="************"
+            name="password"
           ></input>
         </div>
         <div>
@@ -44,4 +55,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;
