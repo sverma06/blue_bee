@@ -7,7 +7,6 @@ router.post(
   '/',
   express.urlencoded({ extended: false }),
   async function (req, res) {
-    console.log('abc123')
     console.log(req.body);
     db.get(
       "SELECT * FROM user WHERE username = ?",

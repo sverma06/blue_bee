@@ -6,7 +6,7 @@ const AddProductButton = () => {
   let navigate = useNavigate();
 
   const navigateAddProduct = () => {
-    navigate("/addProducts", { replace: true });
+    navigate("/products", { replace: true });
   };
 
   return (

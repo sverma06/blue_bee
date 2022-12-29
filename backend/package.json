@@ -12,6 +12,6 @@
     "sqlite3": "^5.1.2"
   },
   "scripts": {
-    "devStart": "nodemon src/backend.js"
+    "devStart": "nodemon src/server.js"
   }
 }

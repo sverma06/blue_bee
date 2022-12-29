@@ -4,7 +4,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 
 router.post(
-  "/signup",
+  "/",
   express.urlencoded({ extended: false }),
   async function (req, res) {
     console.log(req.body);
