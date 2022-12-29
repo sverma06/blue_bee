@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+// import { useParams } from "react-router";
 import { Button, CardContent, Typography } from "@mui/material";
-import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router";
 
 const url = "/cart";
 
 const Cart = () => {
-  const { product_id } = useParams();
+//   const { product_id } = useParams();
 
-  let navigate = useNavigate();
+//   let navigate = useNavigate();
 
   const [cartList, setCartList] = useState([]);
 
@@ -23,11 +23,19 @@ const Cart = () => {
     }
   };
 
-  const cartHandler = async () => {
-    navigate(`/cart/${product_id}`, { replace: true}); 
+  const cartHandler = async (id) => {
+    try {
+        const response = await fetch(`/cart/${id}`, {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        });
+        const json = await response.json();
+        console.log(json);
+        await fetchCartList();
+      } catch (error) {
+        console.log("Error", error);
+      }
   };
-
-
 
   useEffect(() => {
     fetchCartList();
@@ -47,7 +55,7 @@ const Cart = () => {
             {item.quantity}
           </Typography>
         </CardContent>
-        <Button variant="outlined" onClick={cartHandler}>
+        <Button variant="outlined" onClick={() => cartHandler(item.id)}>
           Remove from Cart
         </Button>
       </ul>

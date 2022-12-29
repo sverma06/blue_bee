@@ -11,15 +11,14 @@ const getURL = (product_id) => {
 };
 
 const RemoveItem = () => {
-  const { product_id } = useParams();
   const [item, setItem] = useState({});
 
   const fetchUpdatedList = async () => {
     try {
-      const response = await fetch(getURL(product_id), {
+      const response = await fetch(getURL(item.id), {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product_id }),
+        body: JSON.stringify({ product_id: item.id }),
       });
       const json = await response.json();
       console.log(json);

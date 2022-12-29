@@ -1,24 +1,9 @@
-const { db } = require("../src/database");
+const { db } = require("../../src/database");
 const express = require("express");
-var session = require("express-session");
+const router = express.Router();
 const bcrypt = require("bcrypt");
-const routes = require('./routes');
 
-const app = express();
-app.use(express.json());
-
-app.use(express.static("public"));
-
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
-// post hashed password for signup
-app.post(
+router.post(
   "/signup",
   express.urlencoded({ extended: false }),
   async function (req, res) {
@@ -48,12 +33,4 @@ app.post(
   }
 );
 
-//Error handling
-app.use(function (err, req, res, next) {
-  console.log(err);
-  res.status(500).send("Something is broken");
-});
-
-app.use(routes);
-
-app.listen(3001, () => console.log("Running on 3001"));
+module.exports = router;
