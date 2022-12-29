@@ -58,7 +58,7 @@ export default function SearchAppBar() {
   let navigate = useNavigate();
 
   const profileHandler = () => {
-    navigate("/home/profile", { replace: true})
+    navigate("/currentUser", { replace: true})
   }
 
   const homeHandler = () => {

@@ -1,18 +1,18 @@
 import React from "react";
 import "./Login.css";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { Typography } from "@mui/material";
 
 const Login = () => {
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
-  const navigateHome = () => {
-    navigate("/home", { replace: true})
-  }
+  // const navigateHome = () => {
+  //   navigate("/home", { replace: true})
+  // }
 
-  const signupPage = () => {
-    navigate("/signup", { replace: true});
-  }
+  // const signupPage = () => {
+  //   navigate("/signup", { replace: true});
+  // }
 
   return (
     <div className="App">
@@ -38,10 +38,10 @@ const Login = () => {
           ></input>
         </div>
         <div>
-          <button className="button" onClick={navigateHome}>Login</button>
+          <button className="button">Login</button>
         </div>
       </form>
-      <button className="link-btn" onClick={signupPage}>Don't have an account? Signup here</button>
+      <button className="link-btn">Don't have an account? Signup here</button>
     </div>
     </div>
   );

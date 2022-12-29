@@ -99,7 +99,6 @@ app.post(
             if (same) {
               req.session.user = { username: row.username };
               res.send("welcome!");
-              // res.redirect("/home");
             } else {
               res.send("incorrect password/username");
             }
@@ -174,21 +173,6 @@ app.get("/currentUser", (req, res) => {
     });
 });
 
-// // // gives you product id
-// app.post("/products") , (req,res) => {
-//   express.urlencoded({ extended: false }),
-//   async function (req, res) {
-//     console.log(req.body);
-//   db.get("SELECT * FROM product WHERE id = ?", (err, rows) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       res.status(200).json(rows);
-//     }
-//   });
-// }
-// }
-
 // single product
 app.get("/products/:id", (req, res) => {
   const fetchId = req.params.id;
@@ -200,14 +184,6 @@ app.get("/products/:id", (req, res) => {
     }
   });
   console.log("Product id",fetchId );
-});
-
-// logged in user profile
-app.get("/home/profile", (req, res) => {
-  db.get("SELECT username, email FROM user WHERE username = ?", (err, rows) => {
-    if (err) throw err;
-    res.status(200).json(rows);
-  });
 });
 
 // logout

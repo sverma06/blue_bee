@@ -5,8 +5,6 @@ import HomePage from "./components/HomePage/HomePage";
 import ProductsList from "./components/Products/ProductsList";
 import Username from "./components/HomePage/Username";
 import ProductPage from "./components/Products/ProductPage";
-// import SingleProduct from "./components/Products/SingleProduct";
-import Profile from "./components/Header/Profile";
 import {createBrowserRouter} from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -38,8 +36,4 @@ export const router = createBrowserRouter([
       path: "/products/:id",
       element: <ProductPage />
     },
-    {
-      path: "home/profile",
-      element: <Profile />
-    }
   ]);
