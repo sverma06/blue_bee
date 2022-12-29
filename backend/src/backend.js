@@ -88,9 +88,9 @@ db.get( "SELECT * FROM user WHERE username = ?", req.body.username,
         if (err) throw err;
         console.log(req.body.password, row.password);
         if (same) {
-          res.send("welcome!");
           req.session.user = { username: row.username };
-          res.redirect("/home"); //added this to navigate to home page when successful
+          res.send("welcome!");
+          // res.redirect("/home");
         } else {
           res.send("incorrect password/username");
         }
@@ -146,6 +146,18 @@ app.post(
     }
   }
 );
+
+// get product
+app.get("/addProducts", (req,res) => {
+  db.get("SELECT * FROM product", (err, rows) => {
+    if (err) throw err
+  res.status(200).json( rows )
+})
+});
+
+app.get("/currentUser", (req, res) => {
+  res.status(200).json({username: req.session.user.username, createdDate: req.session.user.create_at})
+})
 
 //home
 app.get("/home", (req,res) => {
